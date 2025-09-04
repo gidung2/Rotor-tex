@@ -19,6 +19,12 @@
 #ifndef WIN64
 #include <pthread.h>
 #endif
+// Rotor.cpp 맨 위쪽
+static void printStatus(const char *timeStr, unsigned long long rKeyCount, const char *hexStr,
+                        int nbFoundKey, double completedPerc, int nbit2, double rate,
+                        bool isGPU, unsigned long long count, bool showRKey, bool showCompleted) {
+    // ... 내용 ...
+}
 
 using namespace std;
 
@@ -1764,19 +1770,17 @@ void Rotor::Search(int nbThread, std::vector<int> gpuId, std::vector<int> gridSi
 
 			}
 		}
-		
-		// 공통 출력 함수
-void printStatus(const char *timeStr,
-                 unsigned long long rKeyCount,
-                 const char *hexStr,
-                 int nbFoundKey,
-                 double completedPerc,
-                 int nbit2,
-                 double rate,
-                 bool isGPU,
-                 unsigned long long count,
-                 bool showRKey,
-                 bool showCompleted)
+	printStatus(toTimeStr(t1, timeStr),
+            rKeyCount,
+            rhex.GetBase16().c_str(),
+            nbFoundKey,
+            completedPerc,
+            nbit2,
+            avgGpuKeyRate,
+            true,
+            count,
+            true,
+            false);	
 {
     const char *unit;
     double displayRate;
